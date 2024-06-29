@@ -12,7 +12,7 @@
         </pre>
       </div>
       <transition name="slide-fade">
-        <img v-if="visible" src="@/assets/calgary.jpg" alt="Mi Foto" class="profile-photo" />
+        <img v-if="visible" src="@/assets/ddawave.jpg" alt="Mi Foto" class="profile-photo" />
       </transition>
     </div>
     <div class="scroll-down">
@@ -58,7 +58,9 @@ export default {
 
       const elements = ['user', 'role', 'location', 'skills', 'contact'];
       for (const el of elements) {
-        await this.typeText(this.$refs[el], this.$refs[el].innerText);
+        if (this.$refs[el]) {  // Verificar que el elemento exista
+          await this.typeText(this.$refs[el], this.$refs[el].innerText);
+        }
       }
     },
     typeText(element, text) {
@@ -86,6 +88,7 @@ export default {
 };
 </script>
 
+
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;700&display=swap');
 
@@ -108,13 +111,15 @@ export default {
   justify-content: space-between;
   max-width: 1200px;
   width: 100%;
+  margin-bottom: 2rem; /* Espacio adicional debajo del contenido */
 }
 .left-section {
   display: flex;
   flex-direction: column;
+  margin-right: 2rem; /* Espacio adicional a la derecha de la sección izquierda */
 }
 .ascii-art {
-  margin-right: 2rem;
+  margin-bottom: 2rem; /* Espacio adicional debajo del arte ASCII */
   white-space: pre;
   color: #c5c8c6; /* Color del arte ASCII */
   text-shadow: 0 0 10px rgba(255, 255, 255, 0.3); /* Tamaño de fuente mayor */
@@ -123,6 +128,7 @@ export default {
   white-space: pre;
   color: #c5c8c6;
   font-size: 1.2rem; /* Tamaño de fuente mayor */
+  margin-bottom: 2rem; /* Espacio adicional debajo de la información del sistema */
 }
 .system-info .label {
   color: #6DA5C0; /* Color actualizado */
@@ -141,6 +147,7 @@ export default {
   object-fit: cover;
   transition: transform 1s;
   box-shadow: 0 0 10px #6DA5C0; /* Sombra de la foto */
+  margin-bottom: 2rem; /* Espacio adicional debajo de la foto */
 }
 .scroll-down {
   position: absolute;
@@ -184,6 +191,38 @@ export default {
   100% {
     opacity: 0;
     transform: translateY(6px);
+  }
+}
+
+@media (max-width: 1024px) {
+  .ascii-art {
+    font-size: 1rem; /* Disminuir tamaño de fuente para pantallas medianas */
+  }
+
+  .system-info {
+    font-size: 1rem; /* Disminuir tamaño de fuente para pantallas medianas */
+    text-align: left;
+  }
+}
+
+@media (max-width: 768px) {
+  .content {
+    flex-direction: column;
+    align-items: center;
+  }
+  .ascii-art {
+    margin: 0 0 2rem 0;
+    font-size: 0.8em; /* Disminuir aún más tamaño de fuente para pantallas pequeñas */
+    padding-left: 12px;
+  }
+  .profile-photo {
+    width: 200px;
+    height: 200px;
+    margin-bottom: 2rem;
+  }
+  .system-info {
+    font-size: 0.8rem; /* Ajustar tamaño de fuente para pantallas pequeñas */
+    text-align: center;
   }
 }
 </style>

@@ -3,7 +3,7 @@
     <div class="navbar-brand">
       <h1>ddaywave.</h1>
     </div>
-    <div class="navbar-buttons">
+    <div class="navbar-buttons" v-if="!isMobileMenuOpen">
       <button @click="scrollToSection('header')"><span class="nav-number">01</span> <span class="nav-text">// Home</span></button>
       <button @click="scrollToSection('about')"><span class="nav-number">02</span> <span class="nav-text">// About me</span></button>
       <button @click="scrollToSection('cv')"><span class="nav-number">03</span> <span class="nav-text">// Skills</span></button>
@@ -11,22 +11,37 @@
       <button @click="scrollToSection('courses')"><span class="nav-number">05</span> <span class="nav-text">// Courses</span></button>
       <button @click="scrollToSection('footer')"><span class="nav-number">06</span> <span class="nav-text">// Contact</span></button>
     </div>
+    <button class="hamburger" @click="toggleMobileMenu" v-if="isMobileMenuVisible">☰</button>
+    <div class="mobile-menu" v-if="isMobileMenuOpen">
+      <button @click="scrollToSection('header')">Home</button>
+      <button @click="scrollToSection('about')">About me</button>
+      <button @click="scrollToSection('cv')">Skills</button>
+      <button @click="scrollToSection('education')">Education</button>
+      <button @click="scrollToSection('courses')">Courses</button>
+      <button @click="scrollToSection('footer')">Contact</button>
+    </div>
   </nav>
 </template>
+
 
 <script>
 export default {
   name: 'NavbarSection',
   data() {
     return {
-      isScrolled: false
+      isScrolled: false,
+      isMobileMenuOpen: false,
+      isMobileMenuVisible: false
     };
   },
   mounted() {
     window.addEventListener('scroll', this.handleScroll);
+    window.addEventListener('resize', this.handleResize);
+    this.handleResize();
   },
   beforeUnmount() {
     window.removeEventListener('scroll', this.handleScroll);
+    window.removeEventListener('resize', this.handleResize);
   },
   methods: {
     handleScroll() {
@@ -38,11 +53,19 @@ export default {
         const yOffset = -70; // Ajusta según la altura de tu navbar
         const y = section.getBoundingClientRect().top + window.pageYOffset + yOffset;
         window.scrollTo({ top: y, behavior: 'smooth' });
+        this.isMobileMenuOpen = false; // Cerrar menú al hacer clic en una sección
       }
+    },
+    toggleMobileMenu() {
+      this.isMobileMenuOpen = !this.isMobileMenuOpen;
+    },
+    handleResize() {
+      this.isMobileMenuVisible = window.innerWidth <= 768; // Ajustar según el tamaño de breakpoint
     }
   }
 }
 </script>
+
 
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;700&display=swap');
@@ -111,4 +134,47 @@ export default {
 .navbar-buttons button:hover::before {
   color: #f39c12; /* Cambiar el color de la línea separadora al hacer hover */
 }
+.hamburger {
+  display: none;
+  font-size: 2rem;
+  background: none;
+  border: none;
+  color: #ffffff;
+  cursor: pointer;
+}
+.mobile-menu {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  background-color: #000000;
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  padding-top: 4rem;
+  z-index: 9;
+}
+.mobile-menu button {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.5rem;
+  margin: 1rem 0;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .navbar-buttons {
+    display: none;
+  }
+  .hamburger {
+    display: block;
+  }
+  .mobile-menu {
+    display: flex;
+  }
+}
 </style>
+
+

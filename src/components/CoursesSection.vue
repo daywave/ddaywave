@@ -54,6 +54,7 @@ export default {
   }
 }
 </script>
+
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;700&display=swap');
 
@@ -367,6 +368,55 @@ export default {
   100% {
     clip: rect(62px, 550px, 74px, 0);
     transform: skew(0.3deg);
+  }
+}
+
+@media (max-width: 1024px) {
+  .course-icon-card {
+    width: 45%; /* Ajustar el ancho para pantallas medianas */
+  }
+
+  .courses-container {
+    justify-content: center; /* Centrar los elementos */
+  }
+
+  .course-icon {
+    font-size: 1.5rem; /* Ajustar tamaño del icono para pantallas medianas */
+  }
+
+  .toggle-icon {
+    font-size: 1.25rem; /* Ajustar tamaño del icono para pantallas medianas */
+  }
+}
+
+@media (max-width: 768px) {
+  .content {
+    flex-direction: column;
+    align-items: center;
+  }
+  .courses-container {
+    flex-direction: column; /* Organizar en una columna para pantallas pequeñas */
+    align-items: center;
+  }
+  .course-icon-card {
+    width: 90%; /* Ajustar el ancho para pantallas pequeñas */
+    margin: 1rem 0; /* Agregar margen vertical */
+  }
+  .course-icon {
+    font-size: 1.5rem; /* Ajustar tamaño del icono para pantallas pequeñas */
+  }
+  .toggle-icon {
+    font-size: 1.25rem; /* Ajustar tamaño del icono para pantallas pequeñas */
+  }
+  .course-card {
+    margin-top: 1rem;
+    background-color: #101223;
+    padding: 1rem;
+    border-radius: 8px;
+  }
+  .lottie-container {
+    width: 100%; /* Asegurar que la animación ocupe todo el ancho */
+    margin-top: 2rem; /* Espacio adicional arriba */
   }
 }
 </style>
